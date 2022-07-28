@@ -11,35 +11,40 @@ function App() {
   const [artData, setArtData] = useState([]);
 
   useEffect(() => {
+    const getQuote = () => {
+      axios.get(`${quoteAPI}`)
+      .then((res) => {
+        const newQuote = {
+          quoteText: res.data.quote,
+          quoteAuthor: res.data.author
+        };
+        setQuoteData([newQuote]);
+      }).catch((err) => {
+        console.log(err)
+      });
+    };
     getQuote();
+  }, []);
+
+  useEffect(() => {
+    const getArt = () => {
+      axios.get(`${artAPI}`)
+      .then((res) => {
+        const newArt = {
+          imageUrl: res.data.artObjects[`${getRandomNum(100)}`].webImage.url,
+          imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
+        };
+        setArtData([newArt]);
+      }).catch((err) => {
+        console.log(err)
+      });
+    };
     getArt();
   }, []);
 
-  const getQuote = () => {
-    axios.get(`${quoteAPI}`)
-    .then((res) => {
-      const newQuote = {
-        quoteText: res.data.quote,
-        quoteAuthor: res.data.author
-      };
-      setQuoteData([newQuote]);
-    }).catch((err) => {
-      console.log(err)
-    });
-  };
-
-  const getArt = () => {
-    axios.get(`${artAPI}`)
-    .then((res) => {
-      const newArt = {
-        imageUrl: res.data.artObjects[0].webImage.url,
-        imageAlt: res.data.artObjects[0].title
-      };
-      setArtData([newArt]);
-    }).catch((err) => {
-      console.log(err)
-    });
-  };
+  const getRandomNum = (ceiling) => {
+    return Math.round(Math.random() * ceiling);
+  }
 
   return (
     <div>
