@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import InspirationBox from './components/InspirationBox';
 
@@ -35,6 +36,7 @@ function App() {
           imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
         };
         setArtData([newArt]);
+        console.log(res)
       }).catch((err) => {
         console.log(err)
       });
@@ -50,6 +52,10 @@ function App() {
     <div>
       <header>
         <h1>Art Challenge Generator</h1>
+        <nav>
+          <Link to="/faq">faq</Link> |{" "}
+          <Link to="/themedchallenges">themed challenges</Link>
+        </nav>
       </header>
       <main>
         <InspirationBox quotes={quoteData} arts={artData}></InspirationBox>
