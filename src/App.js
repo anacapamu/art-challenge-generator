@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import InspirationBox from './components/InspirationBox';
+import InspirationBox from "./components/InspirationBox";
+import Button from "./components/Button";
 
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
 const artAPI = process.env.REACT_APP_ART_API;
@@ -36,7 +37,6 @@ function App() {
           imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
         };
         setArtData([newArt]);
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       });
@@ -48,6 +48,12 @@ function App() {
     return Math.round(Math.random() * ceiling);
   }
 
+  const navigate = useNavigate();
+
+  const navigateToSignIn = () => {
+    navigate("/signin");
+  };
+
   return (
     <div>
       <header>
@@ -55,6 +61,7 @@ function App() {
         <nav>
           <Link to="/faq">faq</Link> |{" "}
           <Link to="/themedchallenges">themed challenges</Link>
+          <Button text="sign in" onClick={navigateToSignIn} color="#2559c6"></Button>
         </nav>
       </header>
       <main>
