@@ -24,6 +24,9 @@ const SignUp = () => {
 
   return (
     <div>
+      <nav>
+        <Link to="/">home</Link>
+      </nav>
       <div>
         <h1>Sign up for a free account</h1>
         <p>

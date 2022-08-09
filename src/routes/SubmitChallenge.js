@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ref, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button"
 
 const SubmitChallenge = () => {
@@ -24,8 +24,6 @@ const SubmitChallenge = () => {
         imageRef = weeklyImageRef;
     }
 
-    console.log(imageRef)
-
     uploadBytes(imageRef, imageUpload).then(() => {
         console.log("Challenge succcessfully uploaded.");
         navigateToThemedChallenges();
@@ -40,15 +38,17 @@ const SubmitChallenge = () => {
 
   return (
     <section>
-        <h2>Upload a Challenge</h2>
-        <label>Choose challenge type: </label>
-            <select onChange={ ((e) => setSelectedChallenge(e.target.value)) }>
-                <option value="weekly">weekly challenge</option>
-                <option value="monthly">monthly challenge</option>
-                </select>
-        <input className="btn" type="file" onChange={(e) => {
-          setImageUpload(e.target.files[0]);
-        }}/>
+      <nav>
+        <Link to="/">home</Link> |{" "}
+        <Link to="/profile">profile</Link>
+      </nav>
+      <h2>Upload a Challenge</h2>
+      <label>Choose challenge type: </label>
+        <select onChange={ ((e) => setSelectedChallenge(e.target.value)) }>
+          <option value="weekly">weekly challenge</option>
+          <option value="monthly">monthly challenge</option>
+        </select>
+        <input type="file" onChange={(e) => { setImageUpload(e.target.files[0]); }}/>
       <Button text="upload challenge" onClick={uploadFile} color="#30aee9"></Button>
     </section>
   );

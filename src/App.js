@@ -4,13 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import InspirationBox from "./components/InspirationBox";
 import Button from "./components/Button";
+import WordGenerator from './components/WordGenerator';
+import WordPreview from './components/WordPreview';
 
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
 const artAPI = process.env.REACT_APP_ART_API;
+const wordsAPIKey = process.env.REACT_APP_WORDSAPI_API_KEY;
 
 function App() {
   const [quoteData, setQuoteData] = useState([]);
   const [artData, setArtData] = useState([]);
+  const [wordsData, setWordsData] = useState([]);
 
   useEffect(() => {
     const getQuote = () => {
@@ -54,6 +58,41 @@ function App() {
     navigate("/signin");
   };
 
+  const getWord = (wordType) => {
+    const options = {
+      method: 'GET',
+      url: 'https://wordsapiv1.p.rapidapi.com/words/',
+      params: {
+        random: 'true',
+        partofspeech: `${wordType}`
+      },
+      headers: {
+        'X-RapidAPI-Key': `${wordsAPIKey}`,
+        'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+      }
+    };
+
+    axios.request(options).then(function (res) {
+      console.log(res.data.word)
+      return res.data.word
+    }).catch(function (err) {
+      console.error(err);
+    });
+  };
+
+ const generateWords = (userPreferences) => {
+    const words = []
+    let i = 1;
+
+    while (i <= userPreferences.days) {
+      let newWord = getWord(userPreferences.wordType);
+      words.push(newWord)
+      i ++
+    };
+    console.log(words);
+    return setWordsData(words);
+  };
+
   return (
     <div>
       <header>
@@ -65,6 +104,8 @@ function App() {
         </nav>
       </header>
       <main>
+        <WordGenerator onGenerate={ generateWords }></WordGenerator>
+        <WordPreview words = { wordsData }></WordPreview>
         <InspirationBox quotes={quoteData} arts={artData}></InspirationBox>
       </main>
     </div>

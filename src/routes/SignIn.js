@@ -24,6 +24,9 @@ const SignIn = () => {
 
   return (
     <div>
+      <nav>
+        <Link to="/">home</Link>
+      </nav>
       <div>
         <h1>Sign in to your account</h1>
         <p>
