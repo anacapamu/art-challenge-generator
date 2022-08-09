@@ -8,7 +8,7 @@ import WordGenerator from './components/WordGenerator';
 import WordPreview from './components/WordPreview';
 
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
-const artAPI = process.env.REACT_APP_ART_API;
+const artAPIKey = process.env.REACT_APP_ART_API_KEY;
 const wordsAPIKey = process.env.REACT_APP_WORDSAPI_API_KEY;
 
 function App() {
@@ -34,7 +34,13 @@ function App() {
 
   useEffect(() => {
     const getArt = () => {
-      axios.get(`${artAPI}`)
+      axios.get(`https://www.rijksmuseum.nl/api/nl/collection?key=${artAPIKey}`,
+        { params: {
+          ps: '100',
+          culture: 'en',
+          imgonly: 'true'
+          }
+        })
       .then((res) => {
         const newArt = {
           imageUrl: res.data.artObjects[`${getRandomNum(100)}`].webImage.url,
@@ -58,39 +64,31 @@ function App() {
     navigate("/signin");
   };
 
-  const getWord = (wordType) => {
-    const options = {
-      method: 'GET',
-      url: 'https://wordsapiv1.p.rapidapi.com/words/',
-      params: {
-        random: 'true',
-        partofspeech: `${wordType}`
-      },
-      headers: {
-        'X-RapidAPI-Key': `${wordsAPIKey}`,
-        'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
-      }
-    };
-
-    axios.request(options).then(function (res) {
-      console.log(res.data.word)
-      return res.data.word
+  const getWord = (wordsType) => {
+    axios.get(`http://api.wordnik.com/v4/words.json/randomWord?api_key=${wordsAPIKey}`,
+      { params: {
+        hasdictionarydef: 'true',
+        includepartofspeech: `${wordsType}`,
+        mindictionarycount: '100'
+        }
+      })
+    .then(function (res) {
+      console.log(wordsType)
+      setWordsData((prevWords) => {
+        return [...prevWords, res.data.word]
+      });
     }).catch(function (err) {
       console.error(err);
     });
   };
 
  const generateWords = (userPreferences) => {
-    const words = []
     let i = 1;
 
     while (i <= userPreferences.days) {
-      let newWord = getWord(userPreferences.wordType);
-      words.push(newWord)
+      getWord(userPreferences.wordsType);
       i ++
     };
-    console.log(words);
-    return setWordsData(words);
   };
 
   return (

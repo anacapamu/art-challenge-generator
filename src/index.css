@@ -39,6 +39,10 @@
   color: white;
 }
 
+.preview {
+  background-color: #ffbb01;
+}
+
 body {
   max-width: max-content;
   margin: auto;
