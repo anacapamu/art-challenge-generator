@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const InspirationQuote = (props) => {
     return (
         <section>
-            <p>{props.quoteText} - {props.quoteAuthor}</p>
+            <p className="quote">"{props.quoteText}"</p>
+            <p className="author">- {props.quoteAuthor}</p>
         </section>
     );
 };

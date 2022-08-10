@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from '../context/AuthContext';
 import Button from "../components/Button";
+import Footer from "../components/Footer";
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -53,6 +54,7 @@ const SignUp = () => {
         </div>
         <Button text="sign up" color="#2559c6"></Button>
       </form>
+      <Footer></Footer>
     </div>
   );
 };

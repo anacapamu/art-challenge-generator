@@ -6,6 +6,8 @@ import InspirationBox from "./components/InspirationBox";
 import Button from "./components/Button";
 import WordGenerator from './components/WordGenerator';
 import WordPreview from './components/WordPreview';
+import { UserAuth } from './context/AuthContext';
+import Footer from './components/Footer';
 
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
 const artAPIKey = process.env.REACT_APP_ART_API_KEY;
@@ -34,11 +36,11 @@ function App() {
 
   useEffect(() => {
     const getArt = () => {
-      axios.get(`https://www.rijksmuseum.nl/api/nl/collection?key=${artAPIKey}`,
+      axios.get(`https://www.rijksmuseum.nl/api/en/collection?key=${artAPIKey}`,
         { params: {
           ps: '100',
-          culture: 'en',
-          imgonly: 'true'
+          p: `${getRandomNum(100)}`,
+          imgonly: 'true',
           }
         })
       .then((res) => {
@@ -47,6 +49,7 @@ function App() {
           imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
         };
         setArtData([newArt]);
+        console.log(res)
       }).catch((err) => {
         console.log(err)
       });
@@ -64,16 +67,20 @@ function App() {
     navigate("/signin");
   };
 
+  const navigateToProfile = () => {
+    navigate("/profile");
+  };
+
   const getWord = (wordsType) => {
     axios.get(`http://api.wordnik.com/v4/words.json/randomWord?api_key=${wordsAPIKey}`,
       { params: {
         hasdictionarydef: 'true',
         includepartofspeech: `${wordsType}`,
+        excludepartofspeech: "adverb,interjection,pronoun,preposition,abbreviation,affix,article,auxiliary-verb,conjunction,definite-article,family-name,given-name,idiom,imperative,noun-plural,noun-posessive,past-participle,phrasal-prefix,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,verb-intransitive,verb-transitive",
         mindictionarycount: '100'
         }
       })
     .then(function (res) {
-      console.log(wordsType)
       setWordsData((prevWords) => {
         return [...prevWords, res.data.word]
       });
@@ -91,6 +98,8 @@ function App() {
     };
   };
 
+  const { user } = UserAuth();
+
   return (
     <div>
       <header>
@@ -98,14 +107,19 @@ function App() {
         <nav>
           <Link to="/faq">faq</Link> |{" "}
           <Link to="/themedchallenges">themed challenges</Link>
-          <Button text="sign in" onClick={navigateToSignIn} color="#2559c6"></Button>
+          <Button text={ user ? "profile": "sign in" }
+            onClick={ user ? navigateToProfile : navigateToSignIn }
+            color={ user ? "#fe67b8": "#2559c6" }></Button>
         </nav>
       </header>
       <main>
-        <WordGenerator onGenerate={ generateWords }></WordGenerator>
-        <WordPreview words = { wordsData }></WordPreview>
+        <section className="home-box">
+          <WordGenerator onGenerate={ generateWords }></WordGenerator>
+          <WordPreview words = { wordsData }></WordPreview>
+        </section>
         <InspirationBox quotes={quoteData} arts={artData}></InspirationBox>
       </main>
+      <Footer></Footer>
     </div>
   );
 };

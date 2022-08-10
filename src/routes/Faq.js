@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Faq = () => {
   return (
@@ -15,6 +16,7 @@ const Faq = () => {
       <p><h4>What if I don't want random words for my art challenge?</h4>
         Check out our themed challenges.
       </p>
+      <Footer></Footer>
     </main>
   );
 };

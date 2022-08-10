@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "../firebase";
 import "./ThemedChallenges.css"
+import Footer from "../components/Footer";
 
 const ThemedChallenges = () => {
   const [weeklyImageUrls, setWeeklyImageUrls] = useState([]);
@@ -56,6 +57,7 @@ const ThemedChallenges = () => {
       {monthlyImageUrls.map((monthlyImageUrl) => {
         return <img src={monthlyImageUrl} alt="monthly challenge"/>;
       })}
+      <Footer></Footer>
     </main>
   );
 };

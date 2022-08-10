@@ -15,7 +15,8 @@ const WordGenerator = (props) => {
     };
 
     return (
-        <form onSubmit = {onSubmit}>
+        <form className="word-box" onSubmit = {onSubmit}>
+            <h2>Create a challenge</h2>
             <label>Number of days in challenge: </label>
             <input type="number" placeholder="1" min="1" max="100"
             onChange={ ((e) => setDays(e.target.value)) }></input>

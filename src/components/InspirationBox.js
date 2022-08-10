@@ -25,10 +25,12 @@ const InspirationBox = (props) => {
     });
 
     return (
-        <section id="inspo-box">
+        <section>
             <h2>Inspiration Box</h2>
-            <div className="inspo-art">{artComponents}</div>
-            <div className="inspo-quote">{quoteComponents}</div>
+            <div className="home-box">
+                <div className="inspo-art">{artComponents}</div>
+                <div className="inspo-quote">{quoteComponents}</div>
+            </div>
         </section>
     );
 };

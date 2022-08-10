@@ -1,28 +1,36 @@
-#inspo-art {
-  max-width: 250px;
+.home-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-#inspo-box {
-  max-width: 500px;
-  display: grid;
-  grid-template-rows: 0.25fr 1fr;
-  grid-template-columns: 0.5fr 1fr;
-  grid-template-areas:
-    "title title"
-    "art quote";
+.word-box {
+  display: flex;
+  flex-direction: column;
 }
 
-#inspo-box > h2 {
-  grid-area: title;
+.word-preview {
+  padding: 20px;
+  background-color: #ffbb01;
 }
 
 .inspo-art {
-  grid-area: art;
+  width: auto;
+  max-width: 250px;
+  max-height: 300px;
 }
 
 .inspo-quote {
-  grid-area: quote;
-  padding: 20px;
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+.quote {
+  font-size: larger;
+}
+
+.author {
+  font-style: italic;
 }
 
 .btn {
@@ -37,10 +45,6 @@
   background: none;
   font-family: inherit;
   color: white;
-}
-
-.preview {
-  background-color: #ffbb01;
 }
 
 body {
@@ -72,7 +76,7 @@ a {
   text-decoration: none;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+footer {
+  margin-top: 30px;
+  text-align: center;
 }

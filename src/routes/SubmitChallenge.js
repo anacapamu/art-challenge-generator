@@ -5,6 +5,7 @@ import { storage } from "../firebase";
 import { v4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button"
+import Footer from "../components/Footer";
 
 const SubmitChallenge = () => {
   const [ imageUpload, setImageUpload ] = useState(null);
@@ -50,6 +51,7 @@ const SubmitChallenge = () => {
         </select>
         <input type="file" onChange={(e) => { setImageUpload(e.target.files[0]); }}/>
       <Button text="upload challenge" onClick={uploadFile} color="#30aee9"></Button>
+      <Footer></Footer>
     </section>
   );
 }
