@@ -28,7 +28,7 @@ const Profile = () => {
       </nav>
       <h1>Profile</h1>
       <p>User Email: {user && user.email}</p>
-      <Button text="submit a challenge" color="#30aee9"
+      <Button text="share a challenge" color="#fe67b8"
           onClick={navigateToSubmitChallenge}></Button>
       <Button text="log out" onClick={handleLogOut} color="#2559c6"></Button>
       <Footer></Footer>

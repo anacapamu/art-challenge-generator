@@ -8,8 +8,12 @@ import "./ThemedChallenges.css"
 import Footer from "../components/Footer";
 
 const ThemedChallenges = () => {
+  const imagesPerRow = 3;
+
   const [weeklyImageUrls, setWeeklyImageUrls] = useState([]);
   const [monthlyImageUrls, setMonthlyImageUrls] = useState([]);
+  const [nextWeeklyImage, setNextWeeklyImage ] = useState(imagesPerRow)
+  const [nextMonthlyImage, setNextMonthlyImage ] = useState(imagesPerRow)
 
   const navigate = useNavigate();
 
@@ -41,22 +45,37 @@ const ThemedChallenges = () => {
     });
   }, []);
 
+  const handleMoreWeeklyImages = () => {
+    setNextWeeklyImage(nextWeeklyImage + imagesPerRow)
+  };
+
+  const handleMoreMonthlyImages = () => {
+    setNextMonthlyImage(nextMonthlyImage + imagesPerRow)
+  };
+
   return (
     <main>
       <nav>
         <Link to="/">home</Link>
-        <Button text="submit a challenge" color="#30aee9"
+        <Button text="share a challenge" color="#fe67b8"
           onClick={navigateToSubmitChallenge}></Button>
       </nav>
       <h1>Themed Challenges</h1>
-      <h2>Weekly Challenges</h2>
-      {weeklyImageUrls.map((weeklyImageUrl) => {
-        return <img src={weeklyImageUrl} alt="weekly challenge"/>;
-      })}
-      <h2>Monthly Challenges</h2>
-      {monthlyImageUrls.map((monthlyImageUrl) => {
-        return <img src={monthlyImageUrl} alt="monthly challenge"/>;
-      })}
+      <h2>Weekly Challenges</h2><br></br>
+      {weeklyImageUrls.slice(0,nextWeeklyImage).map((weeklyImageUrl, index) => {
+        return <img key={index} src={weeklyImageUrl} alt="weekly challenge"/>
+      })}<br></br>
+      {nextWeeklyImage < weeklyImageUrls.length && (
+          <Button text="load more weekly challenges" color="#30aee9"
+          onClick={handleMoreWeeklyImages}></Button>)}
+      <p></p>
+      <h2>Monthly Challenges</h2><br></br>
+      {monthlyImageUrls.slice(0,nextMonthlyImage).map((monthlyImageUrl, index) => {
+        return <img key={index} src={monthlyImageUrl} alt="monthly challenge"/>
+      })}<br></br>
+      {nextMonthlyImage < monthlyImageUrls.length && (
+        <Button text="load more monthly challenges" color="#30aee9"
+        onClick={handleMoreMonthlyImages}></Button>)}
       <Footer></Footer>
     </main>
   );

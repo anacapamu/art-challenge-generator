@@ -16,7 +16,7 @@ const WordPreview = (props) => {
 
 
     return (
-        <section className="word-box">
+        <section className="vertical-box">
             <h2>Your art challenge is:</h2>
             <div className="word-preview">
                 <ol>{props.words.map((word) => <li key={word}>{word}</li>)}</ol>

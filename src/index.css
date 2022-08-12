@@ -4,9 +4,10 @@
   justify-content: space-around;
 }
 
-.word-box {
+.vertical-box {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .word-preview {
@@ -47,16 +48,17 @@
   color: white;
 }
 
+.faq {
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
 body {
-  max-width: max-content;
+  max-width: fit-content;
   margin: auto;
   background-color: #8b5af8;
   padding-top: 10px;
   color: white;
-}
-
-h1 {
-  color: #ffbb01;
 }
 
 header {
@@ -79,4 +81,17 @@ a {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+
+h1 {
+  color: #ffbb01;
+}
+
+h2 {
+ display: inline;
+}
+
+h4 {
+  display: inline;
+  color: #fe67b8;
 }

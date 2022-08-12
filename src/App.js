@@ -49,7 +49,6 @@ function App() {
           imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
         };
         setArtData([newArt]);
-        console.log(res)
       }).catch((err) => {
         console.log(err)
       });
@@ -77,7 +76,7 @@ function App() {
         hasdictionarydef: 'true',
         includepartofspeech: `${wordsType}`,
         excludepartofspeech: "adverb,interjection,pronoun,preposition,abbreviation,affix,article,auxiliary-verb,conjunction,definite-article,family-name,given-name,idiom,imperative,noun-plural,noun-posessive,past-participle,phrasal-prefix,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,verb-intransitive,verb-transitive",
-        mindictionarycount: '100'
+        mindictionarycount: '1000'
         }
       })
     .then(function (res) {
@@ -105,7 +104,7 @@ function App() {
       <header>
         <h1>Art Challenge Generator</h1>
         <nav>
-          <Link to="/faq">faq</Link> |{" "}
+          <Link to="/faq">faq</Link> |{ " " }
           <Link to="/themedchallenges">themed challenges</Link>
           <Button text={ user ? "profile": "sign in" }
             onClick={ user ? navigateToProfile : navigateToSignIn }
@@ -116,8 +115,8 @@ function App() {
         <section className="home-box">
           <WordGenerator onGenerate={ generateWords }></WordGenerator>
           <WordPreview words = { wordsData }></WordPreview>
-        </section>
-        <InspirationBox quotes={quoteData} arts={artData}></InspirationBox>
+        </section><br></br>
+        <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>
       </main>
       <Footer></Footer>
     </div>

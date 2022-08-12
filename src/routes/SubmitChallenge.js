@@ -28,8 +28,10 @@ const SubmitChallenge = () => {
     uploadBytes(imageRef, imageUpload).then(() => {
         console.log("Challenge succcessfully uploaded.");
         navigateToThemedChallenges();
+      }).catch((err) => {
+        console.log(err)
       });
-  };
+    };
 
   const navigate = useNavigate();
 
@@ -38,21 +40,26 @@ const SubmitChallenge = () => {
   };
 
   return (
-    <section>
+    <div>
       <nav>
         <Link to="/">home</Link> |{" "}
         <Link to="/profile">profile</Link>
       </nav>
-      <h2>Upload a Challenge</h2>
-      <label>Choose challenge type: </label>
-        <select onChange={ ((e) => setSelectedChallenge(e.target.value)) }>
-          <option value="weekly">weekly challenge</option>
-          <option value="monthly">monthly challenge</option>
-        </select>
-        <input type="file" onChange={(e) => { setImageUpload(e.target.files[0]); }}/>
-      <Button text="upload challenge" onClick={uploadFile} color="#30aee9"></Button>
+      <main>
+          <h2>Share an Art Challenge</h2>
+          <div className="vertical-box">
+            <label>Choose challenge type: </label>
+              <select onChange={ ((e) => setSelectedChallenge(e.target.value)) }>
+                <option value="weekly">weekly challenge</option>
+                <option value="monthly">monthly challenge</option>
+              </select>
+              <input type="file" accept="image/png, image/jpg, image/gif, image/jpeg"
+                  onChange={(e) => { setImageUpload(e.target.files[0]); }}/>
+            <Button text="upload challenge" onClick={uploadFile} color="#30aee9"></Button>
+          </div>
+      </main>
       <Footer></Footer>
-    </section>
+    </div>
   );
 }
 

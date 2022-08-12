@@ -26,7 +26,8 @@ const InspirationBox = (props) => {
 
     return (
         <section>
-            <h2>Inspiration Box</h2>
+            <h2>Inspiration Corner</h2>
+            <p>Feeling stuck? Get inspired by a random art piece and/or quote!</p>
             <div className="home-box">
                 <div className="inspo-art">{artComponents}</div>
                 <div className="inspo-quote">{quoteComponents}</div>
