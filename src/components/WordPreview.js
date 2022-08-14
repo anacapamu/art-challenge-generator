@@ -19,7 +19,7 @@ const WordPreview = (props) => {
         <section className="vertical-box">
             <h2>Your art challenge is:</h2>
             <div className="word-preview">
-                <ol>{props.words.map((word) => <li key={word}>{word}</li>)}</ol>
+                <ol>{props.words.map((word, index) => <li key={index}>{word}</li>)}</ol>
             </div>
             <Button text="download challenge" color="#30aee9" onClick={downloadWords}></Button>
         </section>

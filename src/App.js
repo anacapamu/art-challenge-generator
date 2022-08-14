@@ -17,9 +17,7 @@ const backEndUrl = process.env.REACT_APP_BACKEND_URL;
 function App() {
   const [quoteData, setQuoteData] = useState([]);
   const [artData, setArtData] = useState([]);
-  const [wordsData, setWordsData] = useState([]);
   const [challengeData, setChallengeData] = useState([]);
-  // const [categoryID, setCategoryID] = useState(0);
 
   useEffect(() => {
     const getQuote = () => {
@@ -103,49 +101,38 @@ function App() {
   const generateWords = async (userPreferences) => {
     setChallengeData([]);
 
-    const categoryID = await getCategoryID(userPreferences.selectedCategory);
+    const words = await getWords(userPreferences.selectedCategory);
 
-    await getWords(categoryID);
-
-    if (wordsData.length < userPreferences.days) {
-      return alert(`Enter a number of days that is equal to or less than ${wordsData.length}`)
+    if (words.length < userPreferences.days) {
+      return alert(`Enter a number that is equal to or less than ${words.length}`)
     }
 
     let i = 1;
     while (i <= userPreferences.days) {
-      getRandomWord();
+      getRandomWord(words);
       i ++
     };
-  };
-
-  const getCategoryID = (selectedCategory) => {
-    return axios.get(`${backEndUrl}/categories`)
-    .then((res) => {
-      const data = res.data;
-      for (const category of data) {
-        if (category.category === selectedCategory) {
-          return category.id
-        }
-      };
-    }).catch((err) => {
-      console.log(err)
-    });
   };
 
   const getWords = (categoryID) => {
     return axios.get(`${backEndUrl}/categories/${categoryID}/words`)
     .then(function (res) {
-      setWordsData(res.data.words)
+      return res.data.words
     }).catch(function (err) {
       console.error(err);
     });
   };
 
-  const getRandomWord = () => {
-    let index = getRandomNum(wordsData.length)
+  const getRandomWord = (words) => {
+    let index = getRandomNum(words.length)
 
-    let newWord = wordsData[index]
-    // check if newWord is in challengeData already, if so generate a new one
+    let newWord = words[index]
+
+    for (const word of challengeData) {
+      if (newWord === word) {
+        getRandomWord()
+      };
+    };
 
     setChallengeData((prevWords) => {
       return [...prevWords, newWord]

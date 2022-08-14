@@ -15,11 +15,7 @@ const WordGenerator = (props) => {
         const getCategories = () => {
           axios.get(`${backEndUrl}/categories`)
           .then((res) => {
-            const data = res.data;
-            const categoryData = data.map((element) => {
-                return element.category;
-            })
-            setCategories(categoryData)
+            setCategories(res.data)
           }).catch((err) => {
             console.log(err)
           });
@@ -33,14 +29,14 @@ const WordGenerator = (props) => {
         props.onGenerate ({ days, selectedCategory });
 
         setDays(1);
+        setSelectedCategory("");
+        e.target.reset();
     };
 
     const onClick = (e) => {
         e.preventDefault();
 
         props.onGenerateSurprise();
-
-        setDays(1);
     };
 
     return (
@@ -55,8 +51,8 @@ const WordGenerator = (props) => {
                         defaultValue="choose">
                     <option value="choose" disabled >
                         -- Select category--</option>
-                    {categories.map((category) => <option key={category} value={category}>
-                        {category}</option>)}
+                    {categories.map((category) => <option key={category.id} value={category.id}>
+                        {category.category}</option>)}
                     </select>
                 <input type="submit" value="generate challenge" className="btn"
                     style={{ backgroundColor: "#30aee9" }}></input>
