@@ -12,11 +12,13 @@ import Footer from './components/Footer';
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
 const artAPIKey = process.env.REACT_APP_ART_API_KEY;
 const wordsAPIKey = process.env.REACT_APP_WORDSAPI_API_KEY;
+const backEndUrl = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
   const [quoteData, setQuoteData] = useState([]);
   const [artData, setArtData] = useState([]);
   const [wordsData, setWordsData] = useState([]);
+  const [categoryID, setCategoryID] = useState(0);
 
   useEffect(() => {
     const getQuote = () => {
@@ -70,13 +72,12 @@ function App() {
     navigate("/profile");
   };
 
-  const getWord = (wordsType) => {
+  const getSurpriseWord = () => {
     axios.get(`http://api.wordnik.com/v4/words.json/randomWord?api_key=${wordsAPIKey}`,
       { params: {
         hasdictionarydef: 'true',
-        includepartofspeech: `${wordsType}`,
         excludepartofspeech: "adverb,interjection,pronoun,preposition,abbreviation,affix,article,auxiliary-verb,conjunction,definite-article,family-name,given-name,idiom,imperative,noun-plural,noun-posessive,past-participle,phrasal-prefix,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,verb-intransitive,verb-transitive",
-        mindictionarycount: '1000'
+        mindictionarycount: '10000'
         }
       })
     .then(function (res) {
@@ -88,13 +89,49 @@ function App() {
     });
   };
 
- const generateWords = (userPreferences) => {
-    let i = 1;
+ const generateSurpriseWords = () => {
+    setWordsData([]);
 
-    while (i <= userPreferences.days) {
-      getWord(userPreferences.wordsType);
+    let i = 1;
+    while (i <= getRandomNum(10)) {
+      getSurpriseWord();
       i ++
     };
+  };
+
+  const generateWords = (userPreferences) => {
+    setWordsData([]);
+
+    axios.get(`${backEndUrl}/categories`)
+    .then((res) => {
+      const data = res.data;
+
+      // loop through data to get key with value selectedCategory
+      // setCategoryID to equal to that key
+
+    }).catch((err) => {
+      console.log(err)
+    });
+
+    // need to check the amount of words for selectedCategory
+    // if days > amount of words, error message and don't enter while loop
+
+    let i = 1;
+    while (i <= userPreferences.days) {
+      getWord(categoryID);
+      i ++
+    };
+  };
+
+  const getWord = (categoryID) => {
+    axios.get(`${backEndUrl}/categories/${categoryID}/words`)
+    .then(function (res) {
+      setWordsData((prevWords) => {
+        return [...prevWords, res.data.word]
+      });
+    }).catch(function (err) {
+      console.error(err);
+    });
   };
 
   const { user } = UserAuth();
@@ -113,10 +150,13 @@ function App() {
       </header>
       <main>
         <section className="home-box">
-          <WordGenerator onGenerate={ generateWords }></WordGenerator>
+          <WordGenerator onGenerateSurprise = { generateSurpriseWords }
+            onGenerate = { generateWords }></WordGenerator>
           <WordPreview words = { wordsData }></WordPreview>
         </section><br></br>
-        <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>
+        <section className="inspo-box">
+          <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>
+        </section>
       </main>
       <Footer></Footer>
     </div>
