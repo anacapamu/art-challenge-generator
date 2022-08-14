@@ -52,8 +52,8 @@ const WordGenerator = (props) => {
                 onChange={ ((e) => setDays(e.target.value)) }></input>
                 <label>Category:</label>
                     <select onChange={ ((e) => setSelectedCategory(e.target.value) )}
-                        defaultValue="chose">
-                    <option value="choose" disabled>
+                        defaultValue="choose">
+                    <option value="choose" disabled >
                         -- Select category--</option>
                     {categories.map((category) => <option key={category} value={category}>
                         {category}</option>)}

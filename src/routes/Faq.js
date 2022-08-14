@@ -10,12 +10,12 @@ const Faq = () => {
       </nav>
       <h1>FAQ</h1>
       <section className="faq">
-        <p><h4>What is an art challenge?</h4><br></br>
-        An art challenge is a commitment an artist makes to complete some sort of
+        <h4>What is an art challenge?</h4>
+        <p>An art challenge is a commitment an artist makes to complete some sort of
         series of work over a period of time.
         </p>
-        <p><h4>What if I don't want random words for my art challenge?</h4><br></br>
-          Check out our <Link to="/themedchallenges">themed challenges</Link>.
+        <h4>What if I don't want random words for my art challenge?</h4>
+        <p>Check out our <Link to="/themedchallenges">themed challenges</Link>.
         </p>
       </section>
       <Footer></Footer>

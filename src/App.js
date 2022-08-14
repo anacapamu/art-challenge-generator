@@ -18,7 +18,8 @@ function App() {
   const [quoteData, setQuoteData] = useState([]);
   const [artData, setArtData] = useState([]);
   const [wordsData, setWordsData] = useState([]);
-  const [categoryID, setCategoryID] = useState(0);
+  const [challengeData, setChallengeData] = useState([]);
+  // const [categoryID, setCategoryID] = useState(0);
 
   useEffect(() => {
     const getQuote = () => {
@@ -81,7 +82,7 @@ function App() {
         }
       })
     .then(function (res) {
-      setWordsData((prevWords) => {
+      setChallengeData((prevWords) => {
         return [...prevWords, res.data.word]
       });
     }).catch(function (err) {
@@ -90,7 +91,7 @@ function App() {
   };
 
  const generateSurpriseWords = () => {
-    setWordsData([]);
+    setChallengeData([]);
 
     let i = 1;
     while (i <= getRandomNum(10)) {
@@ -99,38 +100,55 @@ function App() {
     };
   };
 
-  const generateWords = (userPreferences) => {
-    setWordsData([]);
+  const generateWords = async (userPreferences) => {
+    setChallengeData([]);
 
-    axios.get(`${backEndUrl}/categories`)
-    .then((res) => {
-      const data = res.data;
+    const categoryID = await getCategoryID(userPreferences.selectedCategory);
 
-      // loop through data to get key with value selectedCategory
-      // setCategoryID to equal to that key
+    await getWords(categoryID);
 
-    }).catch((err) => {
-      console.log(err)
-    });
-
-    // need to check the amount of words for selectedCategory
-    // if days > amount of words, error message and don't enter while loop
+    if (wordsData.length < userPreferences.days) {
+      return alert(`Enter a number of days that is equal to or less than ${wordsData.length}`)
+    }
 
     let i = 1;
     while (i <= userPreferences.days) {
-      getWord(categoryID);
+      getRandomWord();
       i ++
     };
   };
 
-  const getWord = (categoryID) => {
-    axios.get(`${backEndUrl}/categories/${categoryID}/words`)
+  const getCategoryID = (selectedCategory) => {
+    return axios.get(`${backEndUrl}/categories`)
+    .then((res) => {
+      const data = res.data;
+      for (const category of data) {
+        if (category.category === selectedCategory) {
+          return category.id
+        }
+      };
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+
+  const getWords = (categoryID) => {
+    return axios.get(`${backEndUrl}/categories/${categoryID}/words`)
     .then(function (res) {
-      setWordsData((prevWords) => {
-        return [...prevWords, res.data.word]
-      });
+      setWordsData(res.data.words)
     }).catch(function (err) {
       console.error(err);
+    });
+  };
+
+  const getRandomWord = () => {
+    let index = getRandomNum(wordsData.length)
+
+    let newWord = wordsData[index]
+    // check if newWord is in challengeData already, if so generate a new one
+
+    setChallengeData((prevWords) => {
+      return [...prevWords, newWord]
     });
   };
 
@@ -152,7 +170,7 @@ function App() {
         <section className="home-box">
           <WordGenerator onGenerateSurprise = { generateSurpriseWords }
             onGenerate = { generateWords }></WordGenerator>
-          <WordPreview words = { wordsData }></WordPreview>
+          <WordPreview words = { challengeData }></WordPreview>
         </section><br></br>
         <section className="inspo-box">
           <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>

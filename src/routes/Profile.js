@@ -17,7 +17,6 @@ const Profile = () => {
     }
   };
 
-
   const navigateToSubmitChallenge = () => {
     navigate("/submitchallenge");
   };
