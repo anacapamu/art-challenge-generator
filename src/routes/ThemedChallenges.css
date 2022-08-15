@@ -1,3 +1,8 @@
 img {
     width: 300px;
-  }
+}
+
+.themed-challenges {
+  width: 900px;
+  margin: 0px auto 0px auto;
+}

@@ -53,9 +53,9 @@
   color: white;
 }
 
-.faq {
-  max-width: 400px;
-  word-wrap: break-word;
+.fit-content {
+  max-width: 500px;
+  margin: 0px auto 0px auto;
 }
 
 body {

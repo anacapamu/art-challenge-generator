@@ -24,7 +24,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="fit-content">
       <nav>
         <Link to="/">home</Link>
       </nav>

@@ -54,7 +54,7 @@ const ThemedChallenges = () => {
   };
 
   return (
-    <main>
+    <div className="themed-challenges">
       <nav>
         <Link to="/">home</Link>
         <Button text="share a challenge" color="#fe67b8"
@@ -77,7 +77,7 @@ const ThemedChallenges = () => {
         <Button text="load more monthly challenges" color="#30aee9"
         onClick={handleMoreMonthlyImages}></Button>)}
       <Footer></Footer>
-    </main>
+    </div>
   );
 };
 

@@ -40,13 +40,16 @@ const SubmitChallenge = () => {
   };
 
   return (
-    <div>
+    <div className="fit-content">
       <nav>
         <Link to="/">home</Link> |{" "}
         <Link to="/profile">profile</Link>
       </nav>
       <main>
           <h2>Share an Art Challenge</h2>
+          <p>Weekly challenge = 7 days = 7 words<br></br>
+            Monthly challenge = 28/30/31 days = 28/30/31 words
+          </p>
           <div className="vertical-box">
             <label>Choose challenge type: </label>
               <select onChange={ ((e) => setSelectedChallenge(e.target.value)) }>
