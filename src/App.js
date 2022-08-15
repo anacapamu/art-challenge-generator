@@ -10,9 +10,8 @@ import { UserAuth } from './context/AuthContext';
 import Footer from './components/Footer';
 
 const quoteAPI = process.env.REACT_APP_QUOTE_API;
-const artAPIKey = process.env.REACT_APP_ART_API_KEY;
-const wordsAPIKey = process.env.REACT_APP_WORDSAPI_API_KEY;
 const backEndUrl = process.env.REACT_APP_BACKEND_URL;
+const proxyServer = process.env.REACT_APP_PROXY_SERVER;
 
 function App() {
   const [quoteData, setQuoteData] = useState([]);
@@ -37,13 +36,7 @@ function App() {
 
   useEffect(() => {
     const getArt = () => {
-      axios.get(`https://www.rijksmuseum.nl/api/en/collection?key=${artAPIKey}`,
-        { params: {
-          ps: '100',
-          p: `${getRandomNum(100)}`,
-          imgonly: 'true'
-          }
-        })
+      axios.get(`${proxyServer}/art`)
       .then((res) => {
         let random = getRandomNum(99);
         const newArt = {
@@ -73,13 +66,7 @@ function App() {
   };
 
   const getSurpriseWord = () => {
-    axios.get(`http://api.wordnik.com/v4/words.json/randomWord?api_key=${wordsAPIKey}`,
-      { params: {
-        hasdictionarydef: 'true',
-        excludepartofspeech: "adverb,interjection,pronoun,preposition,abbreviation,affix,article,auxiliary-verb,conjunction,definite-article,family-name,given-name,idiom,imperative,noun-plural,noun-posessive,past-participle,phrasal-prefix,proper-noun,proper-noun-plural,proper-noun-posessive,suffix,verb-intransitive,verb-transitive",
-        mindictionarycount: '10000'
-        }
-      })
+    axios.get(`${proxyServer}/word`)
     .then(function (res) {
       setChallengeData((prevWords) => {
         return [...prevWords, res.data.word]
