@@ -1,7 +1,8 @@
 .home-box {
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  max-width: 900px;
+  margin: 0px auto 0px auto;
 }
 
 .vertical-box {
@@ -15,9 +16,28 @@
   background-color: #ffbb01;
 }
 
-.inspo-box {
+.commentary {
+  font-style: italic;
+  color: #fe67b8;
+}
+
+.inspo-corner {
   background-color: #2559c6;
-  padding: 20px 50px;
+  padding: 20px;
+}
+
+.inspo-box-content {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0px auto 0px auto;
+}
+
+.inspo-header {
+  max-width: 900px;
+  margin: 0px auto 0px auto;
+  text-align: center;
 }
 
 .inspo-art {
@@ -68,6 +88,9 @@ body {
 header {
   display: flex;
   gap: 50px;
+  justify-content: space-around;
+  max-width: 900px;
+  margin: 0px auto 0px auto;
 }
 
 nav {

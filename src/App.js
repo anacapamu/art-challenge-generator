@@ -41,13 +41,14 @@ function App() {
         { params: {
           ps: '100',
           p: `${getRandomNum(100)}`,
-          imgonly: 'true',
+          imgonly: 'true'
           }
         })
       .then((res) => {
+        let random = getRandomNum(99);
         const newArt = {
-          imageUrl: res.data.artObjects[`${getRandomNum(100)}`].webImage.url,
-          imageAlt: res.data.artObjects[`${getRandomNum(100)}`].title
+          imageUrl: res.data.artObjects[`${random}`].webImage.url,
+          imageAlt: res.data.artObjects[`${random}`].title
         };
         setArtData([newArt]);
       }).catch((err) => {
@@ -107,11 +108,28 @@ function App() {
       return alert(`Enter a number that is equal to or less than ${words.length}`)
     }
 
+    let indexes = [];
+    let j = 0;
+    while ( j < words.length ) {
+      indexes.push(j);
+      j++;
+    };
+
+    shuffle(indexes);
+
     let i = 1;
     while (i <= userPreferences.days) {
-      getRandomWord(words);
+      getRandomWord(words, indexes[0]);
+      indexes.shift()
       i ++
     };
+  };
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   };
 
   const getWords = (categoryID) => {
@@ -123,16 +141,8 @@ function App() {
     });
   };
 
-  const getRandomWord = (words) => {
-    let index = getRandomNum(words.length)
-
-    let newWord = words[index]
-
-    for (const word of challengeData) {
-      if (newWord === word) {
-        getRandomWord()
-      };
-    };
+  const getRandomWord = (words, index) => {
+    let newWord = words[index];
 
     setChallengeData((prevWords) => {
       return [...prevWords, newWord]
@@ -159,9 +169,7 @@ function App() {
             onGenerate = { generateWords }></WordGenerator>
           <WordPreview words = { challengeData }></WordPreview>
         </section><br></br>
-        <section className="inspo-box">
-          <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>
-        </section>
+        <InspirationBox quotes={ quoteData } arts={ artData }></InspirationBox>
       </main>
       <Footer></Footer>
     </div>

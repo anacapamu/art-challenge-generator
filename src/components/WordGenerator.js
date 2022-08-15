@@ -57,7 +57,7 @@ const WordGenerator = (props) => {
                 <input type="submit" value="generate challenge" className="btn"
                     style={{ backgroundColor: "#30aee9" }}></input>
             </form>
-            <p>Adventurous? Don't care for the number of days<br></br> or curated categories?
+            <p className="commentary">Adventurous? Don't care for the number of days<br></br> or curated categories?
                 Click the button below!</p>
             <Button text="surprise me" onClick={onClick} color="#ffbb01"></Button>
         </div>
