@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const backEndUrl = process.env.REACT_APP_BACKEND_URL;
@@ -34,7 +34,8 @@ const AddWords = () => {
             formatted_word["word"] = word;
             axios.post(`${backEndUrl}/categories/${selectedCategory}/words`, formatted_word)
             .then((res) => {
-                console.log(res)
+                console.log(res);
+                navigateToHome();
             }).catch((err) => {
                 console.log(err)
             });
@@ -42,6 +43,12 @@ const AddWords = () => {
 
         setInputWords("");
         e.target.reset();
+    };
+
+    const navigate = useNavigate();
+
+    const navigateToHome = () => {
+      navigate("/");
     };
 
     return (
