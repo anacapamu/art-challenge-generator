@@ -46,8 +46,8 @@ const SubmitChallenge = () => {
         <Link to="/profile">profile</Link>
       </nav>
       <main>
-          <h2>Share an Art Challenge</h2>
-          <p>Weekly challenge = 7 days = 7 words<br></br>
+          <h1>Share an Art Challenge</h1>
+          <p className="commentary">Weekly challenge = 7 days = 7 words<br></br>
             Monthly challenge = 28/30/31 days = 28/30/31 words
           </p>
           <div className="vertical-box">

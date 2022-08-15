@@ -1,9 +1,8 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
-import AddWords from '../components/AddWords';
 
 const Profile = () => {
   const { user, logout } = UserAuth();
@@ -22,6 +21,10 @@ const Profile = () => {
     navigate("/submitchallenge");
   };
 
+  const navigateToAddWords = () => {
+    navigate("/addwords");
+  };
+
   return (
     <div className="fit-content">
       <nav>
@@ -30,12 +33,11 @@ const Profile = () => {
       </nav>
       <h1>Profile</h1>
       <p>User Email: <span style={{ color: "#30aee9" }}>{user && user.email}</span></p>
+      <p>User perks:</p>
       <Button text="share a challenge" color="#fe67b8"
-          onClick={navigateToSubmitChallenge}></Button><p></p>
-      <div>
-        <h2>Secret user perk</h2><p></p>
-        <AddWords></AddWords>
-      </div>
+          onClick={navigateToSubmitChallenge}></Button>
+      <Button text="add words" color="#fe67b8"
+          onClick={navigateToAddWords}></Button>
       <Footer></Footer>
     </div>
   );

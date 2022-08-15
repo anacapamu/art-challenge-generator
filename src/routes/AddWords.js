@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const backEndUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -43,10 +45,14 @@ const AddWords = () => {
     };
 
     return (
-        <div>
+        <div className="fit-content">
+            <nav>
+            <Link to="/">home</Link> |{" "}
+            <Link to="/profile">profile</Link>
+             </nav>
             <form onSubmit = {addWords}>
-                <div>
-                    <h4>Add words to a category</h4><br></br>
+                <h1>Add Words to a Category</h1>
+                <div className="vertical-box">
                     <label>Category:</label>
                     <select onChange={ ((e) => setSelectedCategory(e.target.value) )}
                         defaultValue="choose">
@@ -54,14 +60,16 @@ const AddWords = () => {
                         -- Select category--</option>
                     {categories.map((category) => <option key={category.id} value={category.id}>
                         {category.category}</option>)}
-                    </select><br></br>
+                    </select>
+                    <p className="commentary">Each word should be separated by a space.</p>
                     <label>Words: </label>
                     <input type="text" placeholder="Batman Superman Spiderman"
                     value={inputWords} onChange={(e) => setInputWords(e.target.value)}></input>
+                    <input type="submit" value="submit words" className="btn"
+                    style={{ backgroundColor: "#30aee9" }}></input>
                 </div>
-                <input type="submit" value="submit words" className="btn"
-                style={{ backgroundColor: "#30aee9" }}></input>
             </form>
+            <Footer></Footer>
         </div>
     );
   };

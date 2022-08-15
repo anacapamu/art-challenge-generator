@@ -11,6 +11,7 @@ import SignUp from './routes/SignUp';
 import Profile from './routes/Profile';
 import ProtectedRoute from './routes/ProtectedRoute';
 import SubmitChallenge from './routes/SubmitChallenge';
+import AddWords from './routes/AddWords';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
           <Route path="/submitchallenge" element={<ProtectedRoute><SubmitChallenge /></ProtectedRoute>}/>
+          <Route path="/addwords" element={<ProtectedRoute><AddWords /></ProtectedRoute>}/>
         </Routes>
     </AuthContextProvider>
   </BrowserRouter>
