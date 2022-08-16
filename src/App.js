@@ -9,7 +9,6 @@ import WordPreview from './components/WordPreview';
 import { UserAuth } from './context/AuthContext';
 import Footer from './components/Footer';
 
-const quoteAPI = process.env.REACT_APP_QUOTE_API;
 const backEndUrl = process.env.REACT_APP_BACKEND_URL;
 const proxyServer = process.env.REACT_APP_PROXY_SERVER;
 
@@ -20,7 +19,7 @@ function App() {
 
   useEffect(() => {
     const getQuote = () => {
-      axios.get(`${quoteAPI}`)
+      axios.get(`https://api.goprogram.ai/inspiration`)
       .then((res) => {
         const newQuote = {
           quoteText: res.data.quote,
