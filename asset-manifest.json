@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/art-challenge-generator/static/css/main.3da7eaf0.css",
+    "main.js": "/art-challenge-generator/static/js/main.73aefa7f.js",
+    "index.html": "/art-challenge-generator/index.html",
+    "main.3da7eaf0.css.map": "/art-challenge-generator/static/css/main.3da7eaf0.css.map",
+    "main.73aefa7f.js.map": "/art-challenge-generator/static/js/main.73aefa7f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3da7eaf0.css",
+    "static/js/main.73aefa7f.js"
+  ]
+}
